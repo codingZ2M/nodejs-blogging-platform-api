@@ -91,4 +91,4 @@ POST: http://localhost:5001/api/users/login
 }
 
 GET: http://localhost:5001/api/users/
-Token
+Note: User will get a token when they login, that can be sent when they want to view user profile.
