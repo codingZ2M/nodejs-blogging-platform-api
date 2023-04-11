@@ -73,4 +73,22 @@ POST: localhost:5001/api/posts/insertMany
   "category_id": "64267072096b7907b5ee1d43"
 }
 ]
+==================================================================================
 
+User:
+=====
+POST: http://localhost:5001/api/users/register
+ {
+  "username": "Mike",
+  "email": "mike@gmail.com",
+  "password": "mike123"
+}
+
+POST: http://localhost:5001/api/users/login
+ {
+  "email": "mike@gmail.com",
+  "password": "mike123"
+}
+
+GET: http://localhost:5001/api/users/
+Token
