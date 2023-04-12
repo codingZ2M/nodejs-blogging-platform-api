@@ -104,4 +104,14 @@ POST: http://localhost:5001/api/comments/
 }
 
 GET: http://localhost:5001/api/comments/post/post_id
-Note: User will get a token when they login, that can be sent when they want to view all comments for a post.
+Note: User will get a token when they login, that can be sent when they want to view all comments of single post.
+
+
+GET: http://localhost:5001/api/comments/:id
+Note: User will get a token when they login, that can be sent when they want to view a comment of single post.
+
+PUT: http://localhost:5001/api/comments/:id
+Note: User will get a token when they login, that can be sent when they want to update a comment of single post.
+
+DELETE: http://localhost:5001/api/comments/:id
+Note: User will get a token when they login, that can be sent when they want to delete a comment of single post.
