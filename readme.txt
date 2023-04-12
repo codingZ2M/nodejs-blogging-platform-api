@@ -92,3 +92,16 @@ POST: http://localhost:5001/api/users/login
 
 GET: http://localhost:5001/api/users/
 Note: User will get a token when they login, that can be sent when they want to view user profile.
+==============================================================================================
+
+Comment:
+=======
+POST: http://localhost:5001/api/comments/
+{
+  "user_id": "6436a68f855730362b89611d",
+  "comment": "Reallay Beautiful article for React",
+  "post_id": "642697055597632d62fb8b27"
+}
+
+GET: http://localhost:5001/api/comments/post/post_id
+Note: User will get a token when they login, that can be sent when they want to view all comments for a post.
