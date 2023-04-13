@@ -1,11 +1,15 @@
 const asyncHandler = require("express-async-handler");
-const Author = require("../models/AuthorModel");
+const  AuthorService = require("../service/AuthorService");
+
+const authorService = new AuthorService();
+
+class AuthorController {
 
 //@desc Get all Authors
 //@route GET /api/authors
 //@access private
-const getAuthors = asyncHandler(  async (req, res) => {
-  const authors = await Author.find();
+ getAuthors = asyncHandler(  async (req, res) => {
+  const authors = await authorService.getAuthors();
   res.status(200).json(authors);
   }  );
 
@@ -13,25 +17,22 @@ const getAuthors = asyncHandler(  async (req, res) => {
 //@desc Create new Author
 //@route POST /api/authors
 //@access private
-const createAuthor = asyncHandler(async (req, res) => {
+ createAuthor = asyncHandler(async (req, res) => {
   const {name, bio} = req.body;
   if(!name || !bio) {
    res.status(400);
    throw new Error("All Fileds Are Mandatory!");
   }
-   const author = await Author.create({
-    name,
-    bio,
-   })
-   res.status(200).json(author);
+  const author = await authorService.createAuthor({name, bio });
+  res.status(200).json(author);
    });
 
 
 //@desc Get Author
 //@route GET /api/authors/:id
 //@access private
-const getAuthor = asyncHandler(async (req, res) => {
-  const author = await Author.findById(req.params.id);
+ getAuthor = asyncHandler(async (req, res) => {
+  const author = await authorService.getAuthor(req.params.id);
   if(!author){
     res.status(404);
     throw new Error("Author Not Found!");
@@ -42,35 +43,28 @@ const getAuthor = asyncHandler(async (req, res) => {
 //@desc Update Author
 //@route PUT /api/authors/:id
 //@access private
-const updateAuthor = asyncHandler(async (req, res) => {
-  const author = await Author.findById(req.params.id);
-  if(!author){
+ updateAuthor = asyncHandler(async (req, res) => {
+  const {name, bio} = req.body;
+  const updatedAuthor = await authorService.updateAuthor(req.params.id, {name, bio });
+  if(!updatedAuthor){
     res.status(404);
     throw new Error("Author Not Found!");
   }
-  const updatedAuthor = await Author.findByIdAndUpdate(
-                                          req.params.id,
-                                          req.body,
-                                          {new: true}
-                                        )
     res.status(200).json(updatedAuthor);
 });
 
 //@desc Delete Author
 //@route DELETE /api/authors/:id
 //@access private
-const deleteAuthor = asyncHandler(async (req, res) => {
-  const author = await Author.findById(req.params.id);
+ deleteAuthor = asyncHandler(async (req, res) => {
+  const author = await authorService.deleteAuthor(req.params.id);
   if(!author){
     res.status(404);
     throw new Error("Author Not Found!");
-  }
-    await Author.findByIdAndRemove(req.params.id);
-    res.status(200).json({message:`Author is deleted for ${req.params.id}`});
-});
+   }
+    res.status(200).json({message:`Author is deleted for ${author._id}`});
+ });
 
-module.exports= { getAuthors, 
-    createAuthor, 
-    getAuthor, 
-    updateAuthor, 
-    deleteAuthor};
+}
+
+module.exports = AuthorController; 

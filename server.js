@@ -19,9 +19,11 @@ app.use(express.json());
 app.use("/api/categories", require("./src/routes/categoryRoutes")); //middleware
 app.use("/api/authors", require("./src/routes/authorRoutes")); //middleware
 app.use("/api/posts", require("./src/routes/postRoutes")); //middleware
+app.use("/api/users", require("./src/routes/userRoutes")); 
+app.use("/api/comments", require("./src/routes/commentRoutes")); 
 
 app.use(errorHandler);  // Custom Middleware for Error Handling
 
 app.listen(dbConfig.server.port, () => {
     console.log(`Example app listening on port ${dbConfig.server.port}`)
-  })
+  });

@@ -1,20 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const { getPosts, 
-        getPostsByCategory,
-        createPost,
-        getPost,
-        updatePost,
-        deletePost, insertManyPosts} = require("../controllers/PostController");
+const  PostController = require("../controllers/PostController");
+     
+const postController = new PostController();
 
 
-router.route("/").get( getPosts).post( createPost );
+router.route("/").get( postController.getPosts).post( postController.createPost );
 
-router.route("/:id").get(getPost ).put( updatePost).delete( deletePost)
+router.route("/:id").get(postController.getPost ).put( postController.updatePost).delete( postController.deletePost)
 
-router.route("/category/:category_id").get(getPostsByCategory )
+router.route("/category/:category_id").get(postController.getPostsByCategory )
 
-router.route("/insertMany").post( insertManyPosts );
+router.route("/insertMany").post( postController.insertManyPosts );
 
  module.exports = router;
